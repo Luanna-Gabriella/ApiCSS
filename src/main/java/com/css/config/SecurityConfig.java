@@ -49,11 +49,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                //.requestMatchers("/auth/login").permitAll()
-                //.anyRequest().authenticated()
-                .anyRequest().permitAll()
-            );
-            //.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .requestMatchers("/auth/login").permitAll()
+                .anyRequest().authenticated()
+                //.anyRequest().permitAll()
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
