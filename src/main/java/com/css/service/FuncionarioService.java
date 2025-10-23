@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Service;
 public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
     private final FuncionarioMapper funcionarioMapper;
+    private final PasswordEncoder passwordEncoder; 
    
 
      public List<FuncionarioDto> listarTodos() {
-        return funcionarioRepository.findAll()
+        return funcionarioRepository.findAllFuncionarios()
         .stream()
         .map(funcionarioMapper::toFuncionarioDto)
         .toList();
@@ -34,6 +36,23 @@ public class FuncionarioService {
 
 
         Funcionario funcionario = funcionarioMapper.toFuncionario(funcionarioDto); 
+        
+        // Remove pontos e traços do CPF
+        if (funcionario.getCpf() != null) {
+            funcionario.setCpf(funcionario.getCpf().replaceAll("[.-]", ""));
+        }
+        
+        if (funcionario.getTelefone() != null) {
+            funcionario.setTelefone(funcionario.getTelefone().replaceAll("[() -]", ""));
+        }
+        
+        if (funcionario.getLogin() == null || funcionario.getLogin().getSenha() == null) {
+            throw new IllegalArgumentException("Senha não pode ser nula");
+        }
+        
+        String senhaCriptografada = passwordEncoder.encode(funcionario.getLogin().getSenha());
+        funcionario.getLogin().setSenha(senhaCriptografada);
+        
         Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
 
         return funcionarioMapper.toFuncionarioDto(funcionarioSalvo);

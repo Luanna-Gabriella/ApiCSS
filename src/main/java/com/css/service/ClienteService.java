@@ -6,19 +6,21 @@ import com.css.mapper.ClienteMapper;
 import com.css.repository.ClienteRepository;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 @RequiredArgsConstructor
 public class ClienteService {
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
+    private final PasswordEncoder passwordEncoder; 
    
 
      public List<ClienteDto> listarTodos() {
-        return clienteRepository.findAll()
+        return clienteRepository.findAllClientes()
         .stream()
         .map(clienteMapper::toClienteDto)
         .toList();
@@ -33,7 +35,24 @@ public class ClienteService {
     public ClienteDto salvar(ClienteDto clienteDto) {
 
 
-        Cliente cliente = clienteMapper.toCliente(clienteDto); 
+        Cliente cliente = clienteMapper.toCliente(clienteDto);
+        
+        // Remove pontos e traços do CPF
+        if (cliente.getCpf() != null) {
+            cliente.setCpf(cliente.getCpf().replaceAll("[.-]", ""));
+        }
+        
+        if (cliente.getTelefone() != null) {
+            cliente.setTelefone(cliente.getTelefone().replaceAll("[() -]", ""));
+        }
+        
+        if (cliente.getLogin() == null || cliente.getLogin().getSenha() == null) {
+            throw new IllegalArgumentException("Senha não pode ser nula");
+        }
+        
+        String senhaCriptografada = passwordEncoder.encode(cliente.getLogin().getSenha());
+        cliente.getLogin().setSenha(senhaCriptografada);
+    
         Cliente clienteSalvo = clienteRepository.save(cliente);
 
         return clienteMapper.toClienteDto(clienteSalvo);

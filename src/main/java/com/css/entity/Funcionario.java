@@ -39,4 +39,5 @@ public class Funcionario {
     private Date data_nasc;
     private String telefone;
     private int fk_id_tipop;
+    private int ativo;
 }

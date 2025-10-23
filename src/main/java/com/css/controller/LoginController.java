@@ -22,7 +22,6 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
         try {
-            System.out.println(new BCryptPasswordEncoder().encode("123"));
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getSenha()));
             String token = jwtService.generateToken(request.getEmail());
             return ResponseEntity.ok(token);

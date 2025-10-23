@@ -19,4 +19,5 @@ public class FuncionarioDto {
     
     private String telefone;
     private int fk_id_tipop;
+    private int ativo;
 }
