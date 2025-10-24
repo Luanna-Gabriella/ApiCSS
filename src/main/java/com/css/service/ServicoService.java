@@ -16,7 +16,7 @@ public class ServicoService {
     private final ServicoMapper servicoMapper;
    
 
-     public List<ServicoDto> listarTodos() {
+    public List<ServicoDto> listarTodos() {
         return servicoRepository.findAll()
         .stream()
         .map(servicoMapper::toServicoDto)
@@ -44,7 +44,7 @@ public class ServicoService {
                 // Atualiza os dados simples
                 servico.setNome(servicoAtualizadoDto.getNome());
                 servico.setPreco(servicoAtualizadoDto.getPreco());
-                servico.setFk_id_tempo(servicoAtualizadoDto.getFk_id_tempo());
+                //servico.setTempo(servicoAtualizadoDto.getTempo()); 
                 
                 Servico atualizado = servicoRepository.save(servico);
                 return servicoMapper.toServicoDto(atualizado);

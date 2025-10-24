@@ -9,5 +9,6 @@ public class ServicoDto {
     
     private String nome;
     private float preco;
-    private int fk_id_tempo;
+    private TempoDto tempo;
+    private int ativo;
 }
