@@ -33,9 +33,7 @@ public class Servico {
     private String nome;
     private float preco;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_tempo") 
-    private Tempo tempo;
-    
+    private int duracao;
+    private String descricao;
     private int ativo;
 }

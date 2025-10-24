@@ -9,6 +9,7 @@ public class ServicoDto {
     
     private String nome;
     private float preco;
-    private TempoDto tempo;
+    private int duracao;
+    private String descricao;
     private int ativo;
 }

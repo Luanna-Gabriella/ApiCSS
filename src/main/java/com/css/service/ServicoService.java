@@ -44,8 +44,9 @@ public class ServicoService {
                 // Atualiza os dados simples
                 servico.setNome(servicoAtualizadoDto.getNome());
                 servico.setPreco(servicoAtualizadoDto.getPreco());
-                //servico.setTempo(servicoAtualizadoDto.getTempo()); 
-                
+                servico.setDuracao(servicoAtualizadoDto.getDuracao()); 
+                servico.setAtivo(servicoAtualizadoDto.getAtivo()); 
+                servico.setDescricao(servicoAtualizadoDto.getDescricao()); 
                 Servico atualizado = servicoRepository.save(servico);
                 return servicoMapper.toServicoDto(atualizado);
             })
