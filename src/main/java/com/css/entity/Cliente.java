@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +37,7 @@ public class Cliente {
     
     private String nome;
     private String cpf;
-    private Date data_nasc;
+    private LocalDate data_nasc;
     private String telefone;
     private int fk_id_tipop;
     private int ativo;

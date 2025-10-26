@@ -61,21 +61,29 @@ public class ClienteService {
     public ClienteDto atualizar(int id, ClienteDto clienteAtualizadoDto) {
         return clienteRepository.findById(id)
             .map(cliente -> {
-                // Atualiza os dados simples
+                // Atualiza os dados do cliente
                 cliente.setNome(clienteAtualizadoDto.getNome());
                 cliente.setCpf(clienteAtualizadoDto.getCpf());
                 cliente.setData_nasc(clienteAtualizadoDto.getData_nasc());
                 cliente.setTelefone(clienteAtualizadoDto.getTelefone());
-                if (clienteAtualizadoDto.getLogin() != null) {
-                    cliente.setLogin(clienteAtualizadoDto.getLogin());
+
+                // Atualiza apenas o email do login, sem alterar a senha
+                if (cliente.getLogin() != null && clienteAtualizadoDto.getLogin() != null) {
+                    cliente.getLogin().setEmail(clienteAtualizadoDto.getLogin().getEmail());
                 }
-                
+                // Remove pontos e traços do CPF
+                if (cliente.getCpf() != null) {
+                    cliente.setCpf(cliente.getCpf().replaceAll("[.-]", ""));
+                }
+
+                if (cliente.getTelefone() != null) {
+                    cliente.setTelefone(cliente.getTelefone().replaceAll("[() -]", ""));
+                }
                 Cliente atualizado = clienteRepository.save(cliente);
                 return clienteMapper.toClienteDto(atualizado);
             })
             .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
-
     
     
     
