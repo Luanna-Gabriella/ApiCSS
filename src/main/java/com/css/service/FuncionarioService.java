@@ -81,6 +81,8 @@ public class FuncionarioService {
                 funcionario.setCpf(funcionarioAtualizadoDto.getCpf());
                 funcionario.setData_nasc(funcionarioAtualizadoDto.getData_nasc());
                 funcionario.setTelefone(funcionarioAtualizadoDto.getTelefone());
+                funcionario.setFk_id_tipop(funcionarioAtualizadoDto.getFk_id_tipop());
+                funcionario.setAtivo(funcionarioAtualizadoDto.getAtivo());
 
                 // Atualiza apenas o email do login, sem alterar a senha
                 if (funcionario.getLogin() != null && funcionarioAtualizadoDto.getLogin() != null) {

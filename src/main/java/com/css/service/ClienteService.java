@@ -66,7 +66,8 @@ public class ClienteService {
                 cliente.setCpf(clienteAtualizadoDto.getCpf());
                 cliente.setData_nasc(clienteAtualizadoDto.getData_nasc());
                 cliente.setTelefone(clienteAtualizadoDto.getTelefone());
-
+                cliente.setAtivo(clienteAtualizadoDto.getAtivo());
+                
                 // Atualiza apenas o email do login, sem alterar a senha
                 if (cliente.getLogin() != null && clienteAtualizadoDto.getLogin() != null) {
                     cliente.getLogin().setEmail(clienteAtualizadoDto.getLogin().getEmail());
