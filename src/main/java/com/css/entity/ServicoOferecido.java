@@ -11,8 +11,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,36 +20,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "pessoa") 
+@Table(name = "servicooferecido") 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Funcionario {
+public class ServicoOferecido {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pessoa") 
+    @Column(name = "id_servicoo") 
     private int id;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_login") 
-    private Login login;
-    
     private String nome;
-    private String cpf;
-    private LocalDate data_nasc;
-    private String telefone;
-    private int fk_id_tipop;
-    private int ativo;
-        
-    @ManyToMany
-    @JoinTable(
-        name = "FuncionarioServicoOferecido",
-        joinColumns = @JoinColumn(name = "fk_id_funcionario"),
-        inverseJoinColumns = @JoinColumn(name = "fk_id_servicoo")
-    )
-    private List<ServicoOferecido> servicosOferecidos = new ArrayList<>();
+    private boolean ativo;
     
 }
