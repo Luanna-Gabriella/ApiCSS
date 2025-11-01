@@ -41,4 +41,5 @@ public class Cliente {
     private String telefone;
     private int fk_id_tipop;
     private int ativo;
+    private int tentativas;
 }

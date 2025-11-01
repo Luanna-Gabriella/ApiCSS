@@ -56,6 +56,7 @@ public class FuncionarioService {
         
         String senhaCriptografada = passwordEncoder.encode(funcionario.getLogin().getSenha());
         funcionario.getLogin().setSenha(senhaCriptografada);
+        funcionario.setTentativas(0);
         
         Funcionario funcionarioSalvo = funcionarioRepository.save(funcionario);
 

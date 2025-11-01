@@ -54,4 +54,6 @@ public class Funcionario {
     )
     private List<ServicoOferecido> servicosOferecidos = new ArrayList<>();
     
+    private int tentativas;
+    
 }

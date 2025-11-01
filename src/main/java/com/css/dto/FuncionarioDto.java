@@ -24,4 +24,6 @@ public class FuncionarioDto {
     private int ativo;
     
     private List<ServicoOferecidoDto> servicosOferecidos;
+    
+    private int tentativas;
 }

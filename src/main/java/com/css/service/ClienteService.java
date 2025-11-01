@@ -52,7 +52,7 @@ public class ClienteService {
         
         String senhaCriptografada = passwordEncoder.encode(cliente.getLogin().getSenha());
         cliente.getLogin().setSenha(senhaCriptografada);
-    
+        cliente.setTentativas(0);
         Cliente clienteSalvo = clienteRepository.save(cliente);
 
         return clienteMapper.toClienteDto(clienteSalvo);

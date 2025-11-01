@@ -13,4 +13,5 @@ public class UsuarioDto {
     private String nome;
     private int fk_id_tipop;
     private int ativo;
+    private int tentativas;
 }
